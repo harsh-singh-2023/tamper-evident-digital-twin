@@ -1,0 +1,44 @@
+test:
+  name: digital-twin-benchmark
+  description: Benchmarking the Digital Twin State Synchronization Chaincode
+  workers:
+    type: local
+    number: 2
+  rounds:
+    - label: per-update
+      description: Simulates 10 TPS of state updates anchoring individually.
+      txNumber: 100
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 10
+      workload:
+        module: workload/per-update.js
+
+    - label: batched
+      description: Simulates batched updates (10 updates per tx). High data throughput but lower tx throughput requirement.
+      txNumber: 50
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 5
+      workload:
+        module: workload/batched.js
+
+    - label: deviation-triggered
+      description: Simulates sporadic updates triggered only by state deviations (low frequency).
+      txNumber: 20
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 2
+      workload:
+        module: workload/deviation-triggered.js
+
+monitors:
+  resource:
+    - module: docker
+      options:
+        interval: 1
+        containers:
+          - all
