@@ -2,6 +2,9 @@
 
 This repository contains the full implementation of a university capstone project designed to securely synchronize physical asset states with their Digital Twin counterparts using a permissioned blockchain (Hyperledger Fabric) and distributed off-chain storage (IPFS).
 
+## Architecture Diagram
+<img width="5163" height="6662" alt="diagram (2)" src="https://github.com/user-attachments/assets/89c2f2a9-afba-4957-a22d-c9433a30b5e0" />
+
 ## Architecture Components
 
 1. **Sync Service (`/sync-service`)**: A Node.js middleware that ingests live sensor telemetry (simulated via Node-RED), stores the raw JSON payloads on IPFS, and anchors the cryptographic hash and IPFS CID onto the blockchain to ensure data provenance and immutability.
